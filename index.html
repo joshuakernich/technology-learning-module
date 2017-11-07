@@ -1,0 +1,584 @@
+<html>
+<head>
+	<style>
+	body{
+		background: #ddd;
+		font-family: Arial;
+	}
+
+	.page-header{
+		text-align: center;
+		font-size: 50px;
+		margin-bottom: 20px;
+	}
+
+	.module{
+		border: 1px solid #bbb;
+		background: white;
+		
+		max-width: 700px;
+		margin: auto;
+		margin-bottom: 10px;
+		text-align: center;
+		padding: 20px;
+		border-radius: 10px;
+	}
+
+	ul{
+		text-align: left;
+	}
+
+	li{
+		padding: 10px;
+	}
+
+	.input-list{
+
+	}
+
+	.input-list input{
+		width: 600px;
+		padding: 10px;
+		display: inline-block;
+	}
+
+	.input-list button{
+		width: 100px;
+		padding: 10px;
+	}
+
+	h1{
+		margin: 0px;
+		padding: 0px;
+		font-weight: normal;
+		font-size: 20px;
+		padding: 0px;
+	}
+
+	h2{
+		padding: 0px;
+		font-size: 15px;
+		color: #555;
+		font-weight: normal;
+		font-style: italic;
+	}
+
+	.hidden-fact{
+		background: #ccccee;
+		border: 1px solid #aaaabb;
+		margin-top: 5px;
+	}
+
+	.hidden-fact h1{
+		background: #bbbbdd;
+		padding: 10px;
+		cursor: pointer;
+		position: relative;
+	}
+
+	.hidden-fact h1:after{
+		content: "+";
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		line-height: 45px;
+		color: #8888aa;
+		width: 40px;
+		text-align: center;
+		font-size: 30px;
+		text-shadow: 0px 1px 0px white;
+		font-weight: bold;
+	}
+
+	.hidden-fact .reveal{
+		display: none;
+		padding: 20px;
+	}
+
+	.video-player{
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	.video-player:before{
+		content: "►";
+		position: absolute;
+		top:0px;
+		left:0px;
+		right:0px;
+		bottom:0px;
+		background: rgba(0,0,0,0.5);
+		color: white;
+		line-height: 360px;
+		font-size: 200px;
+		text-shadow: 0px 0px 10px black;
+	}
+
+	.video-player.playing:before{
+		display: none;
+	}
+
+	.timer{
+		position: absolute;
+		top: -10px;
+		right: -25px;
+		width: 100px;
+		height: 100px;
+		background: white;
+		border: 1px solid #bbb;
+		line-height: 100px;
+		text-align: center;
+		border-radius: 50px;
+		font-size: 20px;
+	}
+
+	.simulation{
+		width: 600px;
+		height: 500px;
+		position: relative;
+		border: 1px solid #999;
+		margin: auto;
+	}
+
+	.box{
+		left: 10px;
+		bottom: 100px;
+		position: absolute;
+	}
+
+	.box-side{
+		background: rgba(0,0,255,0.1);
+		box-sizing: border-box;
+		transform-origin: bottom left;
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		box-shadow: inset 0px 0px 1px rgba(0,0,255,0.5);
+	}
+
+	.box-side.base{
+		width: 50px;
+		height: 25px;
+		transform:skewX(-45deg);
+	}
+
+	.box-side.top{
+		width: 50px;
+		height: 25px;
+		transform:skewX(-45deg);
+	}
+
+	.box-side.left{
+		width: 25px;
+		height: 50px;
+		transform:skewY(-45deg);
+	}
+
+	.box-side.front{
+		width: 50px;
+		height: 50px;
+	}
+
+	.box-side.back{
+		width: 50px;
+		height: 50px;
+		left: 25px;
+		bottom: 25px;
+	}
+
+	.box-side.right{
+		width: 25px;
+		height: 50px;
+		transform:skewY(-45deg);
+		left:50px;
+	}
+
+	.box.fill .box-side{
+		background: rgba(0,0,255,0.5);
+	}
+	
+	.box.fill .box-side.top{
+		background: rgba(100,100,255,0.5);
+	}	
+
+	.sliders{
+		position: absolute;
+		bottom: 5px;
+		left: 70px;
+	}
+
+	.slider{
+		position: relative;
+		background: #ddd;
+		height: 20px;
+		margin-bottom: 5px;
+	}
+
+	.slider-value{
+		width: 100px;
+		height: 18px;
+		background: rgba(0,0,255,0.1);
+		position: absolute;
+		line-height: 18px;
+		text-align: left;
+		padding-left: 5px;
+		border: 1px solid #999;
+	}
+
+	.slider-thumb{
+		width: 20px;
+		height: 22px;
+		background: transparent;
+		position: absolute;
+		right: -10px;
+		top: -1px;
+		border-radius: 5px;
+		text-align: center;
+		line-height: 22px;
+		background: #999;
+		color: #ddd;
+		cursor: pointer;
+	}
+
+	.slider-thumb:after{
+		content:"▲";
+	}
+
+	.slider-value{
+		font-size: 12px;
+	}
+
+	.slider-label{
+		position: absolute;
+		left: -105px;
+		width: 100px;
+		text-align: right;
+		font-size: 12px;
+		line-height: 20px;
+	}
+
+	.faucet{
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		left: -35px;
+		background-image: url('./faucet.png');
+		background-size: 100px;
+		cursor: pointer;
+	}
+
+	.faucet:after{
+		content: "Click the faucet to fill the container.";
+		position: absolute;
+		left: 90px;
+		top: 20px;
+		font-size: 15px;
+		font-style: italic;
+		width: 150px;
+		color: #777;
+	}
+
+	.faucet-water{
+		position: absolute;
+		left: 35px;
+		top: 80px;
+		width: 12px;
+		background: rgba(0,0,255,0.3);
+		height: 310px;
+		border-radius: 4px;
+	}
+
+	
+	</style>
+	<script type="text/javascript" src='./jquery-3.2.1.min.js'></script>
+	<script type="text/javascript">
+		var fillStartsAt = 11.2;
+		var fillEndsAt = 26;
+
+		function init(){
+			$('.video-player').click(function(){
+				$(this).addClass('playing');
+				
+				var video = $(this).find('video')[0]
+				video.play()
+				video.currentTime = 0;
+
+				var $timer = $(this).find('.timer');
+				if($timer.length){
+					var idInterval = setInterval(function(){
+						if(video.currentTime>=fillEndsAt) clearInterval(idInterval);
+						time = video.currentTime-fillStartsAt;
+						time = Math.max(0,Math.min(time,fillEndsAt));
+						$timer.html(time.toFixed(2));
+					},0);
+				}
+			})
+
+			$('.hidden-fact').click(function(){
+				$(this).find('.reveal').toggle();
+			});
+
+			new Simulation($('.simulation'));
+
+			new InputList($('.input-list'))
+		}
+
+		function InputList($el){
+			$el.find('button').click(function(){
+				var str = $el.find('input').val();
+				$('<li>').appendTo($el.find('ul')).text(str);
+				$el.find('input').val('');
+			});
+		}
+
+		function Simulation($el){
+
+			var w = 5;
+			var h = 5;
+			var d = 5;
+			var fill = 0;
+			var scale = 10;
+			var amount = 0;
+			var rate = 10000; //cubic cm per second
+
+			function redraw(){
+				fillBox($el.find('.box.container'),1);
+				fillBox($el.find('.box.fill'),fill);
+
+				if(fill==0) $el.find('.box.fill').hide();
+				else $el.find('.box.fill').show();
+			}
+
+			function fillBox($box,amount){
+				var $sides = $box.find('.box-side');
+				var $left = $sides.filter('.left');
+				var $right = $sides.filter('.right');
+				var $base = $sides.filter('.base');
+				var $back = $sides.filter('.back');
+				var $front = $sides.filter('.front');
+				var $top = $sides.filter('.top');
+				$front.width(w*scale);
+				$front.height(h*scale*amount);
+				$back.width(w*scale);
+				$back.height(h*scale*amount);
+				$back.css({left:d*scale/2,bottom:d*scale/2});
+				$left.width(d*scale/2);
+				$left.height(h*scale*amount);
+				$right.width(d*scale/2);
+				$right.height(h*scale*amount);
+				$right.css({left:w*scale});
+				$base.width(w*scale);
+				$base.height(d*scale/2);
+				$top.width(w*scale);
+				$top.height(d*scale/2);
+				$top.css({bottom:h*scale*amount});
+				$el.find('.faucet-water').height(310-h*scale*amount);
+			}
+
+			redraw();
+
+			new Slider($('.slider.width'),w,5,50,function(v){
+				w = v;
+				stopAndRedraw();
+			});
+			new Slider($('.slider.height'),h,5,25,function(v){
+				h = v;
+				stopAndRedraw();
+			});
+			new Slider($('.slider.depth'),d,5,15,function(v){
+				d = v;
+				stopAndRedraw();
+			});
+
+			function stopAndRedraw(){
+				clearInterval(idFillInterval);
+				fill = 0;
+				$el.find('.faucet-water').hide();
+				redraw();
+			}
+
+			var idFillInterval = null;
+
+			$el.find('.faucet').click(function(){
+
+				clearInterval(idFillInterval);
+
+				$el.find('.faucet-water').show();
+				var volume = w*h*d; // cubic cms
+				var duration = volume/rate; // in seconds
+
+				var timeStart = new Date().getTime();
+				idFillInterval = setInterval(function(){
+					var timeNow = new Date().getTime();
+					var elapsed = timeNow-timeStart;
+					var seconds = elapsed/1000;
+					fill = seconds/duration;
+					if(fill>1){
+						fill = 1;
+						clearInterval(idFillInterval);
+						$el.find('.faucet-water').hide();
+					}
+
+					var timeFixed = fill*duration;
+					var str = timeFixed.toFixed(2).replace('.',':');
+					$el.find('.timer').text(str);
+
+					redraw();
+				},10);
+			});
+
+
+			
+
+			$el.find('.faucet-water').hide();
+
+			function Slider($el,start,min,max,callback){
+				$el.find('.slider-thumb').on('mousedown',onDrag.bind(this));
+
+				function onDrag(e){
+					$('body').on('mousemove',onMove);
+					$('body').on('mouseup',onDrop.bind(this));
+				}
+
+				function onMove(e){
+					e.preventDefault();
+					var ox = e.pageX - $el.offset().left;
+					var value = Math.round(ox/scale);
+					value = Math.max(min,Math.min(max,value));
+					drawAt(value);
+				}
+
+				function drawAt(value){
+					$el.find('.slider-thumb').css({left:value*scale-10});
+					$el.find('.slider-value').width(value*scale);
+					$el.find('.slider-value').text(value + 'cm');
+					callback(value);
+				}
+
+				function onDrop(e){
+					$('body').off('mousemove',onMove);
+				}
+
+				drawAt(start);
+				$el.width(max*scale);
+			}
+
+
+		}
+
+	</script>
+</head>
+<body onload="init()">
+	<h1 class='page-header'>Fill 'er up!</h1>
+	<div class='module'>
+	<h1>Watch this container fill up.</h1>
+	<h2>Play this video to the classroom.</h2>
+	<div class='video-player'>
+	<video>
+		<source src='./fill-partial.mp4'>
+	</video>
+	</div>
+	</div>
+	<div class='module'>
+	<h1>What questions do you have?</h1>
+	<h2>Ask the class this question. Add responses to the list below.</h2>
+	<div class='input-list'>
+	<input></input><button>Add</button>
+	<ul></ul>
+	</div>
+		<div class='hidden-fact'>
+			<h1>Show community responses</h1>
+			<div class='reveal'>
+				<ul>
+					<li>How much water would fit in the container?</li>
+					<li>How fast is the water coming out?</li>
+					<li>What is the contianer made out of?</li>
+					<li>Is the tap fully open?</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class='module'>
+	
+	<h1>What information do we need?</h1>
+	<h2>Click on the hidden facts below to reveal.</h2>
+		<div class='hidden-fact'>
+			<h1>The dimensions of the container</h1>
+			<div class='reveal'><img src='./dimensions.png'/></div>
+		</div>
+		<div class='hidden-fact'>
+			<h1>The formula for the volume of a rectangular prism</h1>
+			<div class='reveal'>Volume = length × breadth × height</div>
+		</div>
+		<div class='hidden-fact'>
+			<h1>The speed of the water</h1>
+			<div class='reveal'>8000cm<sup>3</sup> per second</div>
+		</div>
+	</div>
+	<div class='module'>
+	<h1>Let's check our results.</h1>
+	<h2>Play this video to see the solution. The timer will run automatically.</h2>
+	<div class='video-player'>
+	<video>
+		<source src='./fill-complete.mp4'>
+	</video>
+	<div class='timer'>0:00</div>
+	</div>
+	</div>
+	<div class='module'>
+	<h1>Let's experiment.</h1>
+	<h2>Adjust the dimensions of the container and the flow-rate of the faucet and test the results.</h2>
+	<div class='simulation'>
+		<div class='box container'>
+			<div class='box-side back'></div>
+			<div class='box-side base'></div>
+			<div class='box-side left'></div>
+			<div class='box-side front'></div>
+			<div class='box-side right'></div>
+		</div>
+		<div class='box fill'>
+			<div class='box-side back'></div>
+			<div class='box-side base'></div>
+			<div class='box-side left'></div>
+			<div class='box-side front'></div>
+			<div class='box-side right'></div>
+			<div class='box-side top'></div>
+		</div>
+
+		<div class='sliders'>
+			<div class='slider width'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Width</div></div>
+			<div class='slider height'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Height</div></div>
+			<div class='slider depth'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Depth</div></div>
+		</div>
+
+		<div class='faucet-water'></div>
+		<div class='faucet'>
+			
+		</div>
+		<div class='timer'>0:00</div>
+	</div>
+	
+	</div>
+	<div class='module'>
+		<h1>What other problems can we apply this knowledge to?<br>What other questions do we have?</h1>
+		<h2>Ask the class these questions. Add responses to the list below.</h2>
+		<div class='input-list'>
+		<input></input><button>Add</button>
+		<ul></ul>
+		</div>
+		<div class='hidden-fact'>
+			<h1>Show community responses</h1>
+			<div class='reveal'>
+				<ul>
+					<li>Finding out how much food we can fit in a refrigerator.</li>
+					<li>What if the container is not rectangular?</li>
+					<li>What if the container is not empty when we start?</li>
+					<li>What if the container has a hole in it?</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
