@@ -1,9 +1,11 @@
 <html>
 <head>
 	<style>
+	@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
 	body{
 		background: #ddd;
-		font-family: Arial;
+		font-family: 'Merriweather', Arial;
 	}
 
 	.page-header{
@@ -268,17 +270,6 @@
 		cursor: pointer;
 	}
 
-	.faucet:after{
-		content: "Click the faucet to fill the container.";
-		position: absolute;
-		left: 90px;
-		top: 20px;
-		font-size: 15px;
-		font-style: italic;
-		width: 150px;
-		color: #777;
-	}
-
 	.faucet-water{
 		position: absolute;
 		left: 35px;
@@ -289,15 +280,55 @@
 		border-radius: 4px;
 	}
 
+	.faucet-info{
+		position: absolute;
+		left: 60px;
+		top: 15px;
+		font-size: 15px;
+		width: 200px;
+	}
+
+	.faucet-info:before{
+		content: "Flow Rate";
+		font-size: 20px;
+		color: #cc0000;
+	}
+
+	.faucet-info select{
+		border-radius: 5px;
+		padding: 5px;
+		margin: 5px;
+	}
+
+	.faucet-info:after{
+		font-style: italic;
+		color: #777;
+		display: block;
+		content: "Click the faucet to fill the container.";
+	}
+
 	
 	</style>
 	<script type="text/javascript" src='./jquery-3.2.1.min.js'></script>
 	<script type="text/javascript">
-		var fillStartsAt = 11.2;
-		var fillEndsAt = 26;
+		
 
 		function init(){
-			$('.video-player').click(function(){
+			
+
+			$('.hidden-fact h1').click(function(){
+				$(this).closest('.hidden-fact').find('.reveal').toggle();
+			});
+
+			new VideoPlayer($('.video-player'));
+
+			new Simulation($('.simulation'));
+
+			new InputList($('.input-list'))
+		}
+
+		function VideoPlayer($el){
+			$el.click(function(){
 				$(this).addClass('playing');
 				
 				var video = $(this).find('video')[0]
@@ -306,6 +337,12 @@
 
 				var $timer = $(this).find('.timer');
 				if($timer.length){
+
+					var fillStartsAt = 11.2;
+					var fillEndsAt = 26;
+					if($timer.data('start')) fillStartsAt = $timer.data('start');
+					if($timer.data('end')) fillEndsAt = $timer.data('end');
+
 					var idInterval = setInterval(function(){
 						if(video.currentTime>=fillEndsAt) clearInterval(idInterval);
 						time = video.currentTime-fillStartsAt;
@@ -314,14 +351,6 @@
 					},0);
 				}
 			})
-
-			$('.hidden-fact').click(function(){
-				$(this).find('.reveal').toggle();
-			});
-
-			new Simulation($('.simulation'));
-
-			new InputList($('.input-list'))
 		}
 
 		function InputList($el){
@@ -405,6 +434,8 @@
 				clearInterval(idFillInterval);
 
 				$el.find('.faucet-water').show();
+				rate = $el.find('select').val();
+
 				var volume = w*h*d; // cubic cms
 				var duration = volume/rate; // in seconds
 
@@ -421,7 +452,7 @@
 					}
 
 					var timeFixed = fill*duration;
-					var str = timeFixed.toFixed(2).replace('.',':');
+					var str = timeFixed.toFixed(2);
 					$el.find('.timer').text(str);
 
 					redraw();
@@ -470,7 +501,7 @@
 	</script>
 </head>
 <body onload="init()">
-	<h1 class='page-header'>Fill 'er up!</h1>
+	<h1 class='page-header'>The Plight of the Plastic Box</h1>
 	<div class='module'>
 	<h1>Watch this container fill up.</h1>
 	<h2>Play this video to the classroom.</h2>
@@ -514,7 +545,23 @@
 		</div>
 		<div class='hidden-fact'>
 			<h1>The speed of the water</h1>
-			<div class='reveal'>8000cm<sup>3</sup> per second</div>
+			<div class='reveal'>
+			<h2>Watch the video to see how long the measuring jug takes to fill 500mL.</h2>
+			<div class='video-player'>
+				<video>
+					<source src='./measuring-jug.mp4'>
+				</video>
+				<div class='timer' data-start='6.5' data-end='13'>0:00</div>
+			</div>
+			</div>
+		</div>
+		<div class='hidden-fact'>
+			<h1>Calculation</h1>
+			<div class='reveal'>
+				The jug fills up to 500mL in 6.5 seconds.
+				<hr>Therefore, the water is running at a rate of 77cm<sup>3</sup> per second.
+				<hr>The final time to fill the original container would be the Volume divided by the flow rate.
+			</div>
 		</div>
 	</div>
 	<div class='module'>
@@ -553,6 +600,14 @@
 			<div class='slider depth'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Depth</div></div>
 		</div>
 
+		<div class='faucet-info'>
+			<select>
+				<option value='80'>80cm³ per second</option>
+				<option value='100'>100cm³ per second</option>
+				<option value='250'>250cm³ per second</option>
+				<option value='1000'>1000cm³ per second</option>
+			</select>
+		</div>
 		<div class='faucet-water'></div>
 		<div class='faucet'>
 			
