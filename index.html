@@ -78,6 +78,27 @@
 		position: relative;
 	}
 
+	.hidden-fact h1 .actual{
+		display: none;
+		vertical-align: middle;
+	}
+
+	.hidden-fact h1 .psuedo:after{
+		content: "(Hover for more info)";
+		margin-left: 10px;
+		font-size: 12px;
+		vertical-align: middle;
+		font-style: italic;
+	}
+
+	.hidden-fact h1:hover .psuedo{
+		display: none;
+	}
+
+	.hidden-fact h1:hover .actual{
+		display: block;
+	}
+
 	.hidden-fact h1:after{
 		content: "+";
 		position: absolute;
@@ -95,6 +116,42 @@
 	.hidden-fact .reveal{
 		display: none;
 		padding: 20px;
+	}
+
+	.hidden-fact.revealed .reveal{
+		display: block;
+	}
+
+	.hidden-fact.revealed h1 .psuedo{
+		display: none;
+	}
+
+	.hidden-fact.revealed h1 .actual{
+		display: block;
+	}
+
+	.hidden-fact.community{
+		background: #ffcc99;
+	}
+
+	.hidden-fact.community h1{
+		background: #ffaa77;
+	}
+
+	.hidden-fact.community h1:after{
+		color: #cc7744;
+	}
+
+	.hidden-fact.fact{
+		background: #bbffbb;
+	}
+
+	.hidden-fact.fact h1{
+		background: #99dd99;
+	}
+
+	.hidden-fact.fact h1:after{
+		color: #66aa66;
 	}
 
 	.video-player{
@@ -119,6 +176,12 @@
 
 	.video-player.playing:before{
 		display: none;
+	}
+
+	.video-player video{
+		width: 640px;
+		height: 360px;
+		background: black;
 	}
 
 	.timer{
@@ -317,7 +380,7 @@
 			
 
 			$('.hidden-fact h1').click(function(){
-				$(this).closest('.hidden-fact').find('.reveal').toggle();
+				$(this).closest('.hidden-fact').toggleClass('revealed');
 			});
 
 			new VideoPlayer($('.video-player'));
@@ -518,7 +581,7 @@
 	<input></input><button>Add</button>
 	<ul></ul>
 	</div>
-		<div class='hidden-fact'>
+		<div class='hidden-fact community'>
 			<h1>Show community responses</h1>
 			<div class='reveal'>
 				<ul>
@@ -529,22 +592,45 @@
 				</ul>
 			</div>
 		</div>
+		<div class='hidden-fact'>
+			<h1>Show target question</h1>
+			<div class='reveal'>
+				<ul>
+					<li>How long will the container take to fill?</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 
 	<div class='module'>
 	
 	<h1>What information do we need?</h1>
+	<h2>Ask the class this question. Add responses to the list below.</h2>
+	<div class='input-list'>
+	<input></input><button>Add</button>
+	<ul></ul>
+	</div>
+	<div class='hidden-fact community'>
+		<h1>Show community responses</h1>
+		<div class='reveal'>
+			<ul>
+				<li>How big is the container?</li>
+				<li>How much of the container fills up in the first video?</li>
+				<li>How long does it take?</li>
+			</ul>
+		</div>
+	</div>
 	<h2>Click on the hidden facts below to reveal.</h2>
-		<div class='hidden-fact'>
-			<h1>The dimensions of the container</h1>
+		<div class='hidden-fact fact'>
+			<h1><span class='psuedo'>Fact 1</span><span class='actual'>The dimensions of the container</span></h1>
 			<div class='reveal'><img src='./dimensions.png'/></div>
 		</div>
-		<div class='hidden-fact'>
-			<h1>The formula for the volume of a rectangular prism</h1>
+		<div class='hidden-fact fact'>
+			<h1><span class='psuedo'>Fact 2</span><span class='actual'>The formula for the volume of a rectangular prism</span></h1>
 			<div class='reveal'>Volume = length × breadth × height</div>
 		</div>
-		<div class='hidden-fact'>
-			<h1>The speed of the water</h1>
+		<div class='hidden-fact fact'>
+			<h1><span class='psuedo'>Fact 3</span><span class='actual'>The speed of the water</span></h1>
 			<div class='reveal'>
 			<h2>Watch the video to see how long the measuring jug takes to fill 500mL.</h2>
 			<div class='video-player'>
@@ -623,7 +709,7 @@
 		<input></input><button>Add</button>
 		<ul></ul>
 		</div>
-		<div class='hidden-fact'>
+		<div class='hidden-fact community'>
 			<h1>Show community responses</h1>
 			<div class='reveal'>
 				<ul>
