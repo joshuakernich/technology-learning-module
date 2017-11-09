@@ -4,7 +4,7 @@
 	@import url('https://fonts.googleapis.com/css?family=Merriweather');
 
 	body{
-		background: #ddd;
+		background: white;
 		font-family: 'Merriweather', Arial;
 	}
 
@@ -15,13 +15,12 @@
 	}
 
 	.module{
-		border: 1px solid #bbb;
-		background: white;
+		
 		
 		max-width: 700px;
 		margin: auto;
 		margin-bottom: 10px;
-		text-align: center;
+		text-align: left;
 		padding: 20px;
 		border-radius: 10px;
 	}
@@ -55,6 +54,9 @@
 		font-weight: normal;
 		font-size: 20px;
 		padding: 0px;
+		background: linear-gradient(to right, #ccccff, white);
+		line-height: 40px;
+		padding-left: 10px;
 	}
 
 	h2{
@@ -69,13 +71,16 @@
 		background: #ccccee;
 		border: 1px solid #aaaabb;
 		margin-top: 5px;
+		background: none;
+		border:none;
 	}
 
 	.hidden-fact h1{
-		background: #bbbbdd;
-		padding: 10px;
+		color: #8888cc;
+		background: none;
 		cursor: pointer;
 		position: relative;
+		border-top: none;
 	}
 
 	.hidden-fact h1 .actual{
@@ -96,26 +101,19 @@
 	}
 
 	.hidden-fact h1:hover .actual{
-		display: block;
+		display: inline;
 	}
 
-	.hidden-fact h1:after{
+	.hidden-fact h1:before{
 		content: "+";
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		line-height: 45px;
-		color: #8888aa;
-		width: 40px;
-		text-align: center;
-		font-size: 30px;
-		text-shadow: 0px 1px 0px white;
+		margin-right: 10px;
 		font-weight: bold;
+		display: inline;
 	}
 
 	.hidden-fact .reveal{
 		display: none;
-		padding: 20px;
+		padding: 10px;
 	}
 
 	.hidden-fact.revealed .reveal{
@@ -130,27 +128,11 @@
 		display: block;
 	}
 
-	.hidden-fact.community{
-		background: #ffcc99;
-	}
-
 	.hidden-fact.community h1{
-		background: #ffaa77;
-	}
-
-	.hidden-fact.community h1:after{
 		color: #cc7744;
 	}
 
-	.hidden-fact.fact{
-		background: #bbffbb;
-	}
-
 	.hidden-fact.fact h1{
-		background: #99dd99;
-	}
-
-	.hidden-fact.fact h1:after{
 		color: #66aa66;
 	}
 
@@ -158,6 +140,7 @@
 		position: relative;
 		display: inline-block;
 		cursor: pointer;
+		text-align: center;
 	}
 
 	.video-player:before{
@@ -487,10 +470,13 @@
 				clearInterval(idFillInterval);
 				fill = 0;
 				$el.find('.faucet-water').hide();
+				$el.find('.timer').text('0.00');
 				redraw();
 			}
 
 			var idFillInterval = null;
+
+			$el.find('select').on('change',stopAndRedraw);
 
 			$el.find('.faucet').click(function(){
 
@@ -521,9 +507,6 @@
 					redraw();
 				},10);
 			});
-
-
-			
 
 			$el.find('.faucet-water').hide();
 
@@ -564,7 +547,7 @@
 	</script>
 </head>
 <body onload="init()">
-	<h1 class='page-header'>The Plight of the Plastic Box</h1>
+	<div class='page-header'>The Plight of the Plastic Box</div>
 	<div class='module'>
 	<h1>Watch this container fill up.</h1>
 	<h2>Play this video to the classroom.</h2>
