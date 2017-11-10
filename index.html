@@ -1,22 +1,107 @@
 <html>
 <head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="./simulation.css">
 	<style>
-	@import url('https://fonts.googleapis.com/css?family=Merriweather');
+	@import url('https://fonts.googleapis.com/css?family=Quicksand:500|Roboto+Slab:700');
 
 	body{
 		background: white;
-		font-family: 'Merriweather', Arial;
+		font-family: 'Quicksand', Arial;
+		margin: 0px;
+	}
+
+	h1{
+		font-family: 'Roboto Slab', Arial;
+		color: black;
+	}
+
+	input, button{
+		font-size: inherit;
+		font-family: inherit;
+	}
+
+	button{
+		font-family: inherit;
+	}
+
+	textarea{
+		resize: none;
+		padding: 10px;
+		width: 640px;
+		height: 200px;
+	}
+
+	.next-button-layer{
+		text-align: center;
+	}
+
+	.next-button{
+		width: 200px;
+		display: inline-block;
+		margin: auto;
+		line-height: 50px;
+		margin-bottom: 50px;
 	}
 
 	.page-header{
 		text-align: center;
-		font-size: 50px;
+		font-size: 40px;
+		margin-bottom: 20px;
+		background:  #737495;
+		line-height: 100px;
+		font-family: 'Roboto Slab', Arial;
+		color: white;
+		text-shadow: 0px -1px black;
+	}
+
+	.chapter-header{
+		line-height: 50px;
+		font-family: 'Roboto Slab', Arial;
+		font-size: 30px;
+		text-align: center;
+		color: #737495;
+	}
+
+	.name-entry{
+
+	}
+
+	.name-entry label{
+		width: 100px;
+		margin-right: 10px;
+	}
+
+	.name-entry input{
+		width: 450px;
+		margin-top: 10px;
+	}
+
+	.name-entry button{
+		width: 450px;
+		padding: 10px;
+		margin: auto;
+		margin-top: 30px;
+		margin-left: 115px;
+		display: inline-block;
+	}
+
+	.lesson-menu{
+		text-align: center;
 		margin-bottom: 20px;
 	}
 
+	.lesson-menu button{
+		display: inline-block;
+		margin: auto;
+		width: 200px;
+		line-height: 30px;
+		font-size: 20px;
+		padding: 10px 0px;
+		cursor: pointer;
+	}
+
 	.module{
-		
-		
 		max-width: 700px;
 		margin: auto;
 		margin-bottom: 10px;
@@ -25,27 +110,63 @@
 		border-radius: 10px;
 	}
 
+	label{
+		display: inline-block;
+		width: 100px;
+		text-align: right;
+		padding-right: 5px;
+	}
+
 	ul{
 		text-align: left;
+		padding-top: 0px;
+		margin-top: 0px;
 	}
 
 	li{
 		padding: 10px;
 	}
 
+	input{
+		padding: 10px;
+		display: inline-block;
+		position: relative;
+	}
+
 	.input-list{
 
 	}
-
+ 
 	.input-list input{
 		width: 600px;
-		padding: 10px;
-		display: inline-block;
 	}
 
-	.input-list button{
+	.solution-input{
+		padding: 10px;
+	}
+
+	.solution-input input{
+		width: 300px;
+	}
+
+	.community-list{
+		color:#F17D80;
+	}
+
+
+	.community-list input{
+		width: 470px;
+		margin-bottom: 5px;
+	}
+
+	.input-list button, .community-list button{
 		width: 100px;
 		padding: 10px;
+	}
+
+	.solution-input button{
+		padding: 10px;
+		width: 300px;
 	}
 
 	h1{
@@ -54,7 +175,7 @@
 		font-weight: normal;
 		font-size: 20px;
 		padding: 0px;
-		background: linear-gradient(to right, #ccccff, white);
+		background: linear-gradient(to right, #68A8AD, white);
 		line-height: 40px;
 		padding-left: 10px;
 	}
@@ -68,15 +189,13 @@
 	}
 
 	.hidden-fact{
-		background: #ccccee;
-		border: 1px solid #aaaabb;
 		margin-top: 5px;
 		background: none;
 		border:none;
 	}
 
 	.hidden-fact h1{
-		color: #8888cc;
+		color: #68A8AD;
 		background: none;
 		cursor: pointer;
 		position: relative;
@@ -125,15 +244,15 @@
 	}
 
 	.hidden-fact.revealed h1 .actual{
-		display: block;
+		display: inline-block;
 	}
 
 	.hidden-fact.community h1{
-		color: #cc7744;
+		color: #F17D80;
 	}
 
 	.hidden-fact.fact h1{
-		color: #66aa66;
+		color: #6C8672;
 	}
 
 	.video-player{
@@ -181,197 +300,140 @@
 		font-size: 20px;
 	}
 
-	.simulation{
-		width: 600px;
-		height: 500px;
-		position: relative;
-		border: 1px solid #999;
-		margin: auto;
-	}
-
-	.box{
-		left: 10px;
-		bottom: 100px;
-		position: absolute;
-	}
-
-	.box-side{
-		background: rgba(0,0,255,0.1);
-		box-sizing: border-box;
-		transform-origin: bottom left;
-		position: absolute;
-		bottom: 0px;
-		left: 0px;
-		box-shadow: inset 0px 0px 1px rgba(0,0,255,0.5);
-	}
-
-	.box-side.base{
-		width: 50px;
-		height: 25px;
-		transform:skewX(-45deg);
-	}
-
-	.box-side.top{
-		width: 50px;
-		height: 25px;
-		transform:skewX(-45deg);
-	}
-
-	.box-side.left{
-		width: 25px;
-		height: 50px;
-		transform:skewY(-45deg);
-	}
-
-	.box-side.front{
-		width: 50px;
-		height: 50px;
-	}
-
-	.box-side.back{
-		width: 50px;
-		height: 50px;
-		left: 25px;
-		bottom: 25px;
-	}
-
-	.box-side.right{
-		width: 25px;
-		height: 50px;
-		transform:skewY(-45deg);
-		left:50px;
-	}
-
-	.box.fill .box-side{
-		background: rgba(0,0,255,0.5);
-	}
-	
-	.box.fill .box-side.top{
-		background: rgba(100,100,255,0.5);
-	}	
-
-	.sliders{
-		position: absolute;
-		bottom: 5px;
-		left: 70px;
-	}
-
-	.slider{
-		position: relative;
-		background: #ddd;
-		height: 20px;
-		margin-bottom: 5px;
-	}
-
-	.slider-value{
-		width: 100px;
-		height: 18px;
-		background: rgba(0,0,255,0.1);
-		position: absolute;
-		line-height: 18px;
-		text-align: left;
-		padding-left: 5px;
-		border: 1px solid #999;
-	}
-
-	.slider-thumb{
-		width: 20px;
-		height: 22px;
-		background: transparent;
-		position: absolute;
-		right: -10px;
-		top: -1px;
-		border-radius: 5px;
+	.module-header{
+		font-size: 25px;
 		text-align: center;
-		line-height: 22px;
-		background: #999;
-		color: #ddd;
-		cursor: pointer;
-	}
-
-	.slider-thumb:after{
-		content:"▲";
-	}
-
-	.slider-value{
-		font-size: 12px;
-	}
-
-	.slider-label{
-		position: absolute;
-		left: -105px;
-		width: 100px;
-		text-align: right;
-		font-size: 12px;
-		line-height: 20px;
-	}
-
-	.faucet{
-		position: absolute;
-		width: 100px;
-		height: 100px;
-		left: -35px;
-		background-image: url('./faucet.png');
-		background-size: 100px;
-		cursor: pointer;
-	}
-
-	.faucet-water{
-		position: absolute;
-		left: 35px;
-		top: 80px;
-		width: 12px;
-		background: rgba(0,0,255,0.3);
-		height: 310px;
-		border-radius: 4px;
-	}
-
-	.faucet-info{
-		position: absolute;
-		left: 60px;
-		top: 15px;
-		font-size: 15px;
-		width: 200px;
-	}
-
-	.faucet-info:before{
-		content: "Flow Rate";
-		font-size: 20px;
-		color: #cc0000;
-	}
-
-	.faucet-info select{
-		border-radius: 5px;
-		padding: 5px;
-		margin: 5px;
-	}
-
-	.faucet-info:after{
-		font-style: italic;
-		color: #777;
-		display: block;
-		content: "Click the faucet to fill the container.";
 	}
 
 	
 	</style>
 	<script type="text/javascript" src='./jquery-3.2.1.min.js'></script>
+
+	<script type="text/javascript" src='./Simulation.js'></script>
 	<script type="text/javascript">
 		
 
+		var questionsTime = 
+		[
+			{id:'time-1',type:'time',rate:100,l:10,h:10,b:10},
+			{id:'time-2',type:'time',rate:100,l:15,h:15,b:15},
+			{id:'time-3',type:'time',rate:100,l:20,h:20,b:20},
+		]
+		
+		var questionsRate = 
+		[
+			{id:'rate-1',type:'rate',rate:100,l:10,h:10,b:10},
+			{id:'rate-2',type:'rate',rate:80,l:10,h:10,b:10},
+			{id:'rate-3',type:'rate',rate:200,l:10,h:10,b:10},
+		]
+
+		var questionsVolume = 
+		[
+			{id:'volume-1',type:'volume',rate:100,l:10,h:10,b:10},
+			{id:'volume-2',type:'volume',rate:100,l:15,h:15,b:15},
+			{id:'volume-3',type:'volume',rate:100,l:25,h:10,b:15},
+		]
+
+		var nameOfPerson;
+
 		function init(){
 			
+			$('.lesson-menu').hide();
+			$('.lesson').hide();
+			$('.next-button').hide();
+			$('.name-entry button').click(function(){
+				var first = $('.name-entry input').eq(0).val();
+				var last = $('.name-entry input').eq(1).val();
 
-			$('.hidden-fact h1').click(function(){
-				$(this).closest('.hidden-fact').toggleClass('revealed');
+				if(first.length && last.length){
+					$('.name-entry').hide();
+					$('.next-button').show();
+					$('.lesson-menu').show();
+					nameOfPerson = first + ' ' + last;
+					$('.module-header').text("Welcome, "+nameOfPerson+"!");
+					launch();
+				}
 			});
 
-			new VideoPlayer($('.video-player'));
 
-			new Simulation($('.simulation'));
+			function launch(){
 
-			new InputList($('.input-list'))
+				var iLesson = 0;
+				var iModule = 0;
+
+				$('.next-button').click(function(){
+					if($('.lesson').eq(iLesson).find('.module').length <= iModule){
+						iLesson ++;
+						iModule = 0;
+					}
+
+					toCurrentLessonAndModule();
+				});
+
+				$('.lesson-menu button').click(function(){
+					iLesson = $('.lesson-menu button').index(this);
+					iModule = 0;
+					toCurrentLessonAndModule();
+				});
+
+				function toCurrentLessonAndModule(){
+					iModule++;
+					$('.lesson').hide();
+					$('.lesson').eq(iLesson).show();
+					$('.lesson').eq(iLesson).find('.module').hide();
+					for(var i=0; i<iModule; i++) $('.lesson').eq(iLesson).find('.module').eq(i).show();
+
+					$('.next-button').hide();
+					console.log( $('.lesson').eq(iLesson).find('.module').length > iModule, $('.lesson').length > iLesson, $('.lesson').length, iLesson )
+					if( $('.lesson').eq(iLesson).find('.module').length == iModule ) $('.next-button').text("NEXT CHAPTER");
+					else $('.next-button').text("NEXT");
+					if( $('.lesson').eq(iLesson).find('.module').length > iModule || $('.lesson').length > (iLesson+1) ) $('.next-button').show();
+				}
+
+				$('.hidden-fact h1').click(function(){
+					$(this).closest('.hidden-fact').toggleClass('revealed');
+				});
+
+				new VideoPlayer($('.video-player'));
+
+				var $elSimulationClone = $('.simulation').clone();
+
+				new Simulation($('.simulation'));
+
+				for(var i=0;i<questionsTime.length;i++){
+					var $elClone = $elSimulationClone.clone().appendTo($('.simulation-questions').eq(0));
+					new Simulation($elClone,questionsTime[i]);
+				}
+
+				for(var i=0;i<questionsRate.length;i++){
+					var $elClone = $elSimulationClone.clone().appendTo($('.simulation-questions').eq(1));
+					new Simulation($elClone,questionsRate[i]);
+				}
+
+				for(var i=0;i<questionsVolume.length;i++){
+					var $elClone = $elSimulationClone.clone().appendTo($('.simulation-questions').eq(2));
+					new Simulation($elClone,questionsVolume[i]);
+				}
+
+				new CommunityList($('.input-list').eq(0),true)
+				new CommunityList($('.input-list').eq(1),true)
+				new CommunityList($('.input-list').eq(2),true)
+
+				new CommunityList($('.community-list').eq(0))
+				new CommunityList($('.community-list').eq(1))
+				new CommunityList($('.community-list').eq(2))
+
+				$('.data-list').each(function(){
+					new CommunityList($(this),true);
+				})
+
+				
+
+				new QuestionInput($('.solution-input'),14.8,'solution');
+			}
 		}
+
+
 
 		function VideoPlayer($el){
 			$el.click(function(){
@@ -402,155 +464,146 @@
 		function InputList($el){
 			$el.find('button').click(function(){
 				var str = $el.find('input').val();
+				if(!str.length){
+					$el.find('input').animate({left:-20},50).animate({left:20},50).animate({left:-20},50).animate({left:0},50);
+					return;
+				}
 				$('<li>').appendTo($el.find('ul')).text(str);
 				$el.find('input').val('');
 			});
 		}
 
-		function Simulation($el){
+		function CommunityList($el,isPrivate){
+			var id = $el.data('id');
 
-			var w = 5;
-			var h = 5;
-			var d = 5;
-			var fill = 0;
-			var scale = 10;
-			var amount = 0;
-			var rate = 10000; //cubic cm per second
+			function addEntry(id,name,entry){
+				var url = './add.php';
 
-			function redraw(){
-				fillBox($el.find('.box.container'),1);
-				fillBox($el.find('.box.fill'),fill);
-
-				if(fill==0) $el.find('.box.fill').hide();
-				else $el.find('.box.fill').show();
+				$.ajax(url,{
+					complete:onResponse,
+					data:{id:id,entry:entry,name:name},
+					method:'GET',
+				})
 			}
 
-			function fillBox($box,amount){
-				var $sides = $box.find('.box-side');
-				var $left = $sides.filter('.left');
-				var $right = $sides.filter('.right');
-				var $base = $sides.filter('.base');
-				var $back = $sides.filter('.back');
-				var $front = $sides.filter('.front');
-				var $top = $sides.filter('.top');
-				$front.width(w*scale);
-				$front.height(h*scale*amount);
-				$back.width(w*scale);
-				$back.height(h*scale*amount);
-				$back.css({left:d*scale/2,bottom:d*scale/2});
-				$left.width(d*scale/2);
-				$left.height(h*scale*amount);
-				$right.width(d*scale/2);
-				$right.height(h*scale*amount);
-				$right.css({left:w*scale});
-				$base.width(w*scale);
-				$base.height(d*scale/2);
-				$top.width(w*scale);
-				$top.height(d*scale/2);
-				$top.css({bottom:h*scale*amount});
-				$el.find('.faucet-water').height(310-h*scale*amount);
+			function getEntries(id,name){
+				var url = './get.php';
+
+				$.ajax(url,{
+					complete:onResponse,
+					data:{id:id,name:name},
+					method:'GET',
+				})
 			}
 
-			redraw();
+			function onResponse(response){
 
-			new Slider($('.slider.width'),w,5,50,function(v){
-				w = v;
-				stopAndRedraw();
-			});
-			new Slider($('.slider.height'),h,5,25,function(v){
-				h = v;
-				stopAndRedraw();
-			});
-			new Slider($('.slider.depth'),d,5,15,function(v){
-				d = v;
-				stopAndRedraw();
-			});
-
-			function stopAndRedraw(){
-				clearInterval(idFillInterval);
-				fill = 0;
-				$el.find('.faucet-water').hide();
-				$el.find('.timer').text('0.00');
-				redraw();
-			}
-
-			var idFillInterval = null;
-
-			$el.find('select').on('change',stopAndRedraw);
-
-			$el.find('.faucet').click(function(){
-
-				clearInterval(idFillInterval);
-
-				$el.find('.faucet-water').show();
-				rate = $el.find('select').val();
-
-				var volume = w*h*d; // cubic cms
-				var duration = volume/rate; // in seconds
-
-				var timeStart = new Date().getTime();
-				idFillInterval = setInterval(function(){
-					var timeNow = new Date().getTime();
-					var elapsed = timeNow-timeStart;
-					var seconds = elapsed/1000;
-					fill = seconds/duration;
-					if(fill>1){
-						fill = 1;
-						clearInterval(idFillInterval);
-						$el.find('.faucet-water').hide();
-					}
-
-					var timeFixed = fill*duration;
-					var str = timeFixed.toFixed(2);
-					$el.find('.timer').text(str);
-
-					redraw();
-				},10);
-			});
-
-			$el.find('.faucet-water').hide();
-
-			function Slider($el,start,min,max,callback){
-				$el.find('.slider-thumb').on('mousedown',onDrag.bind(this));
-
-				function onDrag(e){
-					$('body').on('mousemove',onMove);
-					$('body').on('mouseup',onDrop.bind(this));
+				var $ul = $el.find('ul');
+				var list = JSON.parse(response.responseText);
+				$ul.empty();
+				for(var i=0;i<list.length;i++){
+					if (isPrivate) $('<li>').appendTo($ul).text(list[i].entry);
+					else $('<li>').appendTo($ul).text(list[i].entry+' ('+list[i].name+')');
 				}
 
-				function onMove(e){
-					e.preventDefault();
-					var ox = e.pageX - $el.offset().left;
-					var value = Math.round(ox/scale);
-					value = Math.max(min,Math.min(max,value));
-					drawAt(value);
+				if(!list.length){
+					var message = "No community responses yet. Why not add one below.";
+					if(isPrivate) message = "Add your responses below.";
+					$('<li>').appendTo($ul).text(message);
 				}
-
-				function drawAt(value){
-					$el.find('.slider-thumb').css({left:value*scale-10});
-					$el.find('.slider-value').width(value*scale);
-					$el.find('.slider-value').text(value + 'cm');
-					callback(value);
-				}
-
-				function onDrop(e){
-					$('body').off('mousemove',onMove);
-				}
-
-				drawAt(start);
-				$el.width(max*scale);
 			}
 
 
+			function reload(){
+				if(isPrivate) getEntries(id,nameOfPerson);
+				else getEntries(id);
+			}
+
+			reload();
+			setInterval(function(){
+				if( $el.is(':visible')) reload();
+			},2000);
+
+			$el.find('button').click(function(){
+				var name = nameOfPerson;
+				var entry = $el.find('input').val();
+
+				if(!entry.length) $el.find('input').eq(0).animate({left:-20},50).animate({left:20},50).animate({left:-20},50).animate({left:0},50);
+				if(!entry.length) return;
+
+				addEntry(id,name,entry);
+				$el.find('input').val('');
+			});
 		}
+
+		function QuestionInput($el,solution,id){
+
+			function onResponse(response){
+				console.log(response);
+			}
+
+			function addEntry(id,name,entry){
+				var url = './add.php';
+
+				$.ajax(url,{
+					complete:onResponse,
+					data:{id:id,entry:entry,name:name},
+					method:'GET',
+				})
+			}
+
+			var cntAttempt = 0;
+			$el.find('button').click(function(){
+				cntAttempt++;
+				
+				var entered = $el.find('input').val();
+				if(!entered.length) return;
+
+				addEntry(id,nameOfPerson,entered);
+
+				if(Math.round(solution*10) == Math.round(entered*10)){
+					$el.find('button').text('Correct!');
+					$el.find('button').attr('disabled','disabled');
+					$el.find('input').attr('disabled','disabled');
+				}
+				else if(cntAttempt == 1){
+					$el.find('button').text('Oops! Try Again.');
+				}
+				else{
+					$el.find('button').attr('disabled','disabled');
+					$el.find('input').attr('disabled','disabled');
+					$el.find('button').text('Oops! Correct answer is '+solution+'.');
+				}
+			});
+		}
+		
 
 	</script>
 </head>
 <body onload="init()">
 	<div class='page-header'>The Plight of the Plastic Box</div>
+	<div class='module-header'></div>
+
+	<div class='module'>
+	<div class='name-entry'>
+		<h1>Let's get started. What is your name?</h1>
+		<label>First Name</label><input></input><br>
+		<label>Last Name</label><input></input><br>
+		<button>Let's Go!</button>
+	</div>
+	</div>
+	<div class='lesson-menu'>
+		<button>Chapter 1<br>The Experiment</button>
+		<button>Chapter 2<br>The Simulator</button>
+		<button>Chapter 3<br>The Sequel</button>
+		<button>Chapter 4<br>Results</button>
+	</div>
+	<div class='lesson'>
+	<div class='module'>
+		<div class='chapter-header'>Chapter 1 : The Experiment</div>
+	</div>
 	<div class='module'>
 	<h1>Watch this container fill up.</h1>
-	<h2>Play this video to the classroom.</h2>
 	<div class='video-player'>
 	<video>
 		<source src='./fill-partial.mp4'>
@@ -558,21 +611,19 @@
 	</div>
 	</div>
 	<div class='module'>
-	<h1>What questions do you have?</h1>
-	<h2>Ask the class this question. Add responses to the list below.</h2>
-	<div class='input-list'>
-	<input></input><button>Add</button>
+	<h1>What questions does this video raise for you?</h1>
+	<div class='input-list' data-id='inquiry-personal'>
 	<ul></ul>
+	<input></input><button>Add</button>
 	</div>
 		<div class='hidden-fact community'>
 			<h1>Show community responses</h1>
 			<div class='reveal'>
-				<ul>
-					<li>How much water would fit in the container?</li>
-					<li>How fast is the water coming out?</li>
-					<li>What is the contianer made out of?</li>
-					<li>Is the tap fully open?</li>
-				</ul>
+				<div class='community-list' data-id='inquiry'>
+					<ul></ul>
+					<h2>Think one of your own questions belongs here? Add it to the list.</h2>
+					<input></input><button>Add</button>
+				</div>
 			</div>
 		</div>
 		<div class='hidden-fact'>
@@ -587,23 +638,28 @@
 
 	<div class='module'>
 	
-	<h1>What information do we need?</h1>
-	<h2>Ask the class this question. Add responses to the list below.</h2>
-	<div class='input-list'>
-	<input></input><button>Add</button>
+	<h1>What information do you need to answer the target question?</h1>
+	<div class='input-list' data-id='facts-personal'>
 	<ul></ul>
+	<input></input><button>Add</button>
 	</div>
 	<div class='hidden-fact community'>
 		<h1>Show community responses</h1>
 		<div class='reveal'>
-			<ul>
-				<li>How big is the container?</li>
-				<li>How much of the container fills up in the first video?</li>
-				<li>How long does it take?</li>
-			</ul>
+			<div class='community-list' data-id='facts'>
+				<ul>
+					<li>How big is the container?</li>
+					<li>How much of the container fills up in the first video?</li>
+					<li>How long does it take?</li>
+				</ul>
+				<h2>Think one of your own questions belongs here? Add it to the list.</h2>
+				<label>Question:</label><input></input><button>Add</button>
+			</div>
 		</div>
 	</div>
-	<h2>Click on the hidden facts below to reveal.</h2>
+	</div>
+	<div class='module'>
+	<h1>Here are some facts that may help</h1>
 		<div class='hidden-fact fact'>
 			<h1><span class='psuedo'>Fact 1</span><span class='actual'>The dimensions of the container</span></h1>
 			<div class='reveal'><img src='./dimensions.png'/></div>
@@ -620,18 +676,22 @@
 				<video>
 					<source src='./measuring-jug.mp4'>
 				</video>
-				<div class='timer' data-start='6.5' data-end='13'>0:00</div>
+				<div class='timer' data-start='6.5' data-end='12.75'>0:00</div>
 			</div>
 			</div>
 		</div>
 		<div class='hidden-fact'>
 			<h1>Calculation</h1>
 			<div class='reveal'>
-				The jug fills up to 500mL in 6.5 seconds.
-				<hr>Therefore, the water is running at a rate of 77cm<sup>3</sup> per second.
+				The jug fills up to 500mL in 6.25 seconds.
+				<hr>Therefore, the water is running at a rate of 80cm<sup>3</sup> per second.
 				<hr>The final time to fill the original container would be the Volume divided by the flow rate.
 			</div>
 		</div>
+	</div>
+	<div class='module'>
+		<h1>Enter your final solution and submit.</h1>
+		<div class="solution-input" data-id='solution'><input></input> Seconds <br><button>Check</button></div>
 	</div>
 	<div class='module'>
 	<h1>Let's check our results.</h1>
@@ -642,6 +702,11 @@
 	</video>
 	<div class='timer'>0:00</div>
 	</div>
+	</div>
+	</div>
+	<div class='lesson'>
+	<div class='module'>
+		<div class='chapter-header'>Chapter 2 : The Simulator</div>
 	</div>
 	<div class='module'>
 	<h1>Let's experiment.</h1>
@@ -664,9 +729,14 @@
 		</div>
 
 		<div class='sliders'>
-			<div class='slider width'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Width</div></div>
+			<div class='slider width'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Length</div></div>
 			<div class='slider height'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Height</div></div>
-			<div class='slider depth'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Depth</div></div>
+			<div class='slider depth'><div class='slider-value'></div><div class='slider-thumb'></div><div class='slider-label'>Breadth</div></div>
+		</div>
+
+		<div class='calculation'>
+			l × h × b = V
+			<br><span class='l'>l</span>cm × <span class='h'>h</span>cm × <span class='b'>b</span>cm = <span class='v'>v</span>cm<sup>3</sup>
 		</div>
 
 		<div class='faucet-info'>
@@ -682,27 +752,86 @@
 			
 		</div>
 		<div class='timer'>0:00</div>
+		<div class='simulation-question-input'>
+			<span class='simulation-question-text'></span>
+			<div class='simulation-question-input-layer'><input></input><span class='simulation-question-unit'></span></div>
+			<button>Check</button>
+		</div>
 	</div>
-	
+	<div class='module'>
+		<h1>Can you predict the time to fill each box?</h1>
+		<h2>The faucet is locked until you enter your answer.</h2>
+		<div class='simulation-questions'>
+
+		</div>
+	</div>
+	<div class='module'>
+		<h1>Can you calculate the flow rate of each faucet?</h1>
+		<h2>Run the simulation if required.</h2>
+		<div class='simulation-questions'>
+
+		</div>
+	</div>
+	<div class='module'>
+		<h1>Can you figure calculate the volume of each box?</h1>
+		<h2>Run the simulation if required.</h2>
+		<div class='simulation-questions'>
+
+		</div>
+	</div>
+	</div>
+	</div>
+	<div class="lesson">
+	<div class='module'>
+		<div class='chapter-header'>Chapter 3 : The Sequel</div>
 	</div>
 	<div class='module'>
 		<h1>What other problems can we apply this knowledge to?<br>What other questions do we have?</h1>
-		<h2>Ask the class these questions. Add responses to the list below.</h2>
-		<div class='input-list'>
-		<input></input><button>Add</button>
+		<div class='input-list' data-id='sequel-personal'>
 		<ul></ul>
+		<input></input><button>Add</button>
 		</div>
 		<div class='hidden-fact community'>
 			<h1>Show community responses</h1>
 			<div class='reveal'>
-				<ul>
-					<li>Finding out how much food we can fit in a refrigerator.</li>
-					<li>What if the container is not rectangular?</li>
-					<li>What if the container is not empty when we start?</li>
-					<li>What if the container has a hole in it?</li>
-				</ul>
+				<div class='community-list' data-id='sequel'>
+					<ul>
+
+					</ul>
+					<h2>Think one of your own questions belongs here? Add it to the list.</h2>
+					<input></input><button>Add</button>
+				</div>
 			</div>
 		</div>
 	</div>
+	</div>
+	<div class='lesson'>
+		<div class='module'>
+			<div class='chapter-header'>Chapter 4 : Results</div>
+			<h1>What questions does this video raise for you?</h1>
+			<div class='data-list' data-id='inquiry-personal'><ul></ul></div>
+			<h1What information do you need to answer the target question?</h1>
+			<div class='data-list' data-id='facts-personal'><ul></ul></div>
+			<h1>Final solution attempts</h1>
+			<div class='data-list' data-id='solution'><ul></ul></div>
+			<h1>Simulation responses</h1>
+			<h2>Question Set 1: Time</h2>
+			<div class='data-list' data-id='time-1'><ul></ul></div><hr>
+			<div class='data-list' data-id='time-2'><ul></ul></div><hr>
+			<div class='data-list' data-id='time-3'><ul></ul></div><hr>
+			<h2>Question Set 2: Rate</h2>
+			<div class='data-list' data-id='rate-1'><ul></ul></div><hr>
+			<div class='data-list' data-id='rate-2'><ul></ul></div><hr>
+			<div class='data-list' data-id='rate-3'><ul></ul></div><hr>
+			<h2>Question Set 3: Volume</h2>
+			<div class='data-list' data-id='volume-1'><ul></ul></div><hr>
+			<div class='data-list' data-id='volume-2'><ul></ul></div><hr>
+			<div class='data-list' data-id='volume-3'><ul></ul></div><hr>
+			<h1>What other problems can we apply this knowledge to?</h1>
+			<h1>What other questions do we have?</h1>
+			<div class='data-list' data-id='sequel-personal'><ul></ul></div>
+		</div>
+	</div>
+	<div class='next-button-layer'><button class='next-button'>NEXT</button></div>
 </body>
 </html>

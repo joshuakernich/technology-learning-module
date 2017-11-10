@@ -1,0 +1,219 @@
+.simulation{
+		width: 600px;
+		height: 500px;
+		position: relative;
+		border: 1px solid #999;
+		margin: auto;
+		margin-top: 15px;
+	}
+
+	.box{
+		left: 10px;
+		bottom: 100px;
+		position: absolute;
+	}
+
+	.box-side{
+		background: rgba(0,0,255,0.1);
+		box-sizing: border-box;
+		transform-origin: bottom left;
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		box-shadow: inset 0px 0px 1px rgba(0,0,255,0.5);
+	}
+
+	.box-side.base{
+		width: 50px;
+		height: 25px;
+		transform:skewX(-45deg);
+	}
+
+	.box-side.top{
+		width: 50px;
+		height: 25px;
+		transform:skewX(-45deg);
+	}
+
+	.box-side.left{
+		width: 25px;
+		height: 50px;
+		transform:skewY(-45deg);
+	}
+
+	.box-side.front{
+		width: 50px;
+		height: 50px;
+	}
+
+	.box-side.back{
+		width: 50px;
+		height: 50px;
+		left: 25px;
+		bottom: 25px;
+	}
+
+	.box-side.right{
+		width: 25px;
+		height: 50px;
+		transform:skewY(-45deg);
+		left:50px;
+	}
+
+	.box.fill .box-side{
+		background: rgba(0,0,255,0.5);
+	}
+	
+	.box.fill .box-side.top{
+		background: rgba(100,100,255,0.5);
+	}	
+
+	.sliders{
+		position: absolute;
+		bottom: 5px;
+		left: 70px;
+	}
+
+	.slider{
+		position: relative;
+		background: #ddd;
+		height: 20px;
+		margin-bottom: 5px;
+	}
+
+	.slider-value{
+		width: 100px;
+		height: 18px;
+		background: rgba(0,0,255,0.1);
+		position: absolute;
+		line-height: 18px;
+		text-align: left;
+		padding-left: 5px;
+		border: 1px solid #999;
+	}
+
+	.slider-thumb{
+		width: 20px;
+		height: 22px;
+		background: transparent;
+		position: absolute;
+		right: -10px;
+		top: -1px;
+		border-radius: 5px;
+		text-align: center;
+		line-height: 22px;
+		background: #999;
+		color: #ddd;
+		cursor: pointer;
+	}
+
+	.slider-thumb:after{
+		content:"▲";
+	}
+
+	.slider-value{
+		font-size: 12px;
+	}
+
+	.slider-label{
+		position: absolute;
+		left: -105px;
+		width: 100px;
+		text-align: right;
+		font-size: 12px;
+		line-height: 20px;
+	}
+
+	.faucet{
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		left: -35px;
+		background-image: url('./faucet.png');
+		background-size: 100px;
+		cursor: pointer;
+	}
+
+	.faucet-water{
+		position: absolute;
+		left: 35px;
+		top: 80px;
+		width: 12px;
+		background: rgba(0,0,255,0.3);
+		height: 310px;
+		border-radius: 4px;
+	}
+
+	.faucet-info{
+		position: absolute;
+		left: 60px;
+		top: 15px;
+		font-size: 12px;
+		width: 200px;
+		text-align: center;
+	}
+
+	.faucet-info:before{
+		content: "Flow Rate";
+		font-size: 20px;
+		color: #cc0000;
+	}
+
+	.faucet-info select{
+		border-radius: 5px;
+		padding: 5px;
+		margin: 5px;
+	}
+
+	.faucet-info:after{
+		font-style: italic;
+		color: #777;
+		display: block;
+		content: "Click the faucet to fill the container.";
+	}
+
+	.faucet-info.inactive:after{
+		display: none;
+	}
+
+	.simulation .calculation{
+		position: absolute;
+		bottom: 10px;
+		right: 0px;
+		width: 280px;
+		text-align: center;
+		line-height: 20px;
+		font-size: 14px;
+	}
+
+	.simulation-question-input-layer{
+		text-align: center;
+		margin: 5px;
+	}
+
+	.simulation-question-input{
+		position: absolute;
+		right: 20px;
+		top: 150px;
+	}
+
+	.simulation-question-text{
+		display: block;
+	}
+
+	.simulation-question-unit{
+		color: #F17D80;
+	}
+	
+	.simulation-question-input input{
+		padding: 10px;
+		width: 100px;
+		margin-right: 5px;
+		border: 2px solid #F17D80;
+		color: #F17D80;
+	}
+
+	.simulation-question-input button{
+		width: 100%;
+		padding: 10px;
+	}
